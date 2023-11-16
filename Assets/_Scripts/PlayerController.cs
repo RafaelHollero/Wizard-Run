@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spaceship_Controller : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed = 0.5f;
+    public GameObject projectile;
+    public Rigidbody2D rb;
+    private bool isGrounded = true;
+    public int health = 5;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();   
     }
 
     // Update is called once per frame
@@ -31,36 +35,30 @@ public class Spaceship_Controller : MonoBehaviour
 
             gameObject.transform.position = newPos;
         }
-        else if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow) && isGrounded)
         {
-            Vector2 newPos = new Vector2(
-                gameObject.transform.position.x,
-                gameObject.transform.position.y + speed * Time.deltaTime);
-
-            gameObject.transform.position = newPos;
+            Vector2 jump = new Vector2(0.0f, 2.2f);
+            rb.AddForce(jump, ForceMode2D.Impulse);
         }
-        else if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Vector2 newPos = new Vector2(
-                gameObject.transform.position.x,
-                gameObject.transform.position.y - speed * Time.deltaTime);
-
-            gameObject.transform.position = newPos;
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-          //  Instantiate();
+            Vector2 position = new Vector2(
+                gameObject.transform.position.x + 0.75f,
+                gameObject.transform.position.y
+                );
+            Instantiate(projectile, position, Quaternion.identity);
         }
     }
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionEnter2D(Collision2D c)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if(c.transform.position.y > gameObject.transform.position.y)
         {
-            Vector2 newPos = new Vector2(
-                gameObject.transform.position.x,
-                other.gameObject.transform.position.y + 0.5f);
-
-            gameObject.transform.position = newPos;
+            isGrounded = true;
         }
+    }
+
+    void OnCollisionExit2D()
+    {
+        isGrounded = false;
     }
 }
