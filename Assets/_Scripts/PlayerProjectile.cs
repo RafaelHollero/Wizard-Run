@@ -9,6 +9,7 @@ public class PlayerProjectileController : MonoBehaviour
     public int direction = 1;
     public float despawnDistance = 10;
     public float initX;
+    
     // Start is called before the first frame update
     void Start()
     {

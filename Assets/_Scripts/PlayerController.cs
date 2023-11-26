@@ -9,36 +9,58 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     private bool isGrounded = true;
     public int health = 5;
+    public Animator anim;
+    private bool noInput;
+    int layerMask = 1 << 6;
+    private bool upKeyPressed = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();   
+        rb = GetComponent<Rigidbody2D>();
+        anim = gameObject.GetComponent<Animator>();
+        noInput = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.LeftArrow))
+        isGrounded = IsGrounded();
+        noInput = true;
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             Vector2 newPos = new Vector2(
                 gameObject.transform.position.x - speed * Time.deltaTime, 
                 gameObject.transform.position.y);
 
             gameObject.transform.position = newPos;
+            noInput = false;
+            gameObject.transform.localScale = new Vector3(-2.5f, 2.5f, 1);
+            if (isGrounded)
+            {
+                anim.Play("WizardRun");
+            }            
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow) )
         {
             Vector2 newPos = new Vector2(
                 gameObject.transform.position.x + speed * Time.deltaTime,
                 gameObject.transform.position.y);
 
             gameObject.transform.position = newPos;
+            noInput = false;
+            gameObject.transform.localScale = new Vector3(2.5f, 2.5f, 1);
+            if (isGrounded)
+            {
+                anim.Play("WizardRun");
+            }
         }
-        if (Input.GetKey(KeyCode.UpArrow) && isGrounded)
+        if (Input.GetKey(KeyCode.UpArrow) && isGrounded && !upKeyPressed)
         {
-            Vector2 jump = new Vector2(0.0f, 2.2f);
+            Vector2 jump = new Vector2(0.0f, 10f);
             rb.AddForce(jump, ForceMode2D.Impulse);
+            noInput = false;
+            upKeyPressed = true;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -47,18 +69,45 @@ public class PlayerController : MonoBehaviour
                 gameObject.transform.position.y
                 );
             Instantiate(projectile, position, Quaternion.identity);
+            noInput = false;
+            // NEED TO FIX
+            anim.Play("WizardAttack");
         }
-    }
-    void OnCollisionEnter2D(Collision2D c)
-    {
-        if(c.transform.position.y > gameObject.transform.position.y)
+        if (!Input.GetKey(KeyCode.UpArrow))
         {
-            isGrounded = true;
+            upKeyPressed = false;
+        }
+        if (!isGrounded)
+        {
+            anim.Play("WizardJump");
+        }
+        else if(noInput)
+        {
+            anim.Play("WizardIdle");
         }
     }
 
-    void OnCollisionExit2D()
+    bool IsGrounded()
     {
-        isGrounded = false;
+        Vector2 checkPos1 = new Vector2(transform.position.x - transform.localScale.x / 2.5f, transform.position.y); //behind
+        Vector2 checkPos2 = new Vector2(transform.position.x + transform.localScale.x / 5, transform.position.y); //in front
+        bool check1, check2;
+        if(Physics2D.Raycast(checkPos1, -Vector2.up, 1.16f, layerMask).collider == null)
+        {
+            check1 = false;
+        }
+        else
+        {
+            check1 = Physics2D.Raycast(checkPos1, -Vector2.up, 1.16f, layerMask);
+        }
+        if (Physics2D.Raycast(checkPos2, -Vector2.up, 1.16f, layerMask).collider == null)
+        {
+            check2 = false;
+        }
+        else
+        {
+            check2 = Physics2D.Raycast(checkPos2, -Vector2.up, 1.16f, layerMask);
+        }
+        return check1 || check2;
     }
 }
