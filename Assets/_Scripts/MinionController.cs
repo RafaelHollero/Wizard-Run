@@ -6,11 +6,13 @@ public class MinionController : MonoBehaviour
 {
     private float timePassed = 0f;
     public GameObject projectile;
+    private int health = 1;
+    public Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -23,5 +25,19 @@ public class MinionController : MonoBehaviour
             Instantiate(projectile, gameObject.transform.position, Quaternion.identity);
         }
          
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.tag == "PlayerProjectile")
+        {
+            health--;
+            if (health <= 0)
+            {
+                anim.Play("MinionDeath");
+                Destroy(gameObject);
+            }
+
+        }
     }
 }

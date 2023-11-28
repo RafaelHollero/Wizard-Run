@@ -33,14 +33,6 @@ public class PlayerProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Minion")
-        {
-            // Destroy alien
-            // collision.gameObject.GetComponent<AudioSource>().Play();
-            Destroy(collision.gameObject);
-            // Destroy self
-
-        }
         if (collision.gameObject.tag != "Player")
         {
             Destroy(gameObject);
