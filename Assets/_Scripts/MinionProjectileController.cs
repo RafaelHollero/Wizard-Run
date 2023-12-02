@@ -44,7 +44,7 @@ public class MinionProjectileController : MonoBehaviour
             // Destroy self
 
         }
-        if (collision.gameObject.tag != "Minion")
+        if (collision.gameObject.tag != "Minion" && collision.gameObject.tag != "Boss")
         {
             Destroy(gameObject);
         }
