@@ -22,10 +22,9 @@ public class BossController : MonoBehaviour
         timePassed += Time.deltaTime;
         if (timePassed >= 1.2f)
         {
+            
             timePassed = 0f;
-            Debug.Log("Fire");
-            Vector2 pos = new Vector2(gameObject.transform.position.x - player.transform.position.x, gameObject.transform.position.y - player.transform.position.y);
-            Instantiate(projectile, gameObject.transform.position, Quaternion.LookRotation(pos, Vector2.up));
+            Instantiate(projectile, gameObject.transform.position, Quaternion.identity);
         }
 
     }
@@ -39,7 +38,6 @@ public class BossController : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-
         }
     }
 }

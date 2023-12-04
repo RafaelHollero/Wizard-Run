@@ -17886,7 +17886,7 @@ PrefabInstance:
     - target: {fileID: 1070804325640174823, guid: 4400e9ae0affefe4f9327acb67e16434, type: 3}
       propertyPath: projectile
       value: 
-      objectReference: {fileID: 7133002859498207108, guid: 9ee1d6b60651cb84887b127c1cfcb86e, type: 3}
+      objectReference: {fileID: 6312838634663422208, guid: 4596d12a9f93e5542b3a9dc4ad8dd8ea, type: 3}
     - target: {fileID: 3198860599608615379, guid: 4400e9ae0affefe4f9327acb67e16434, type: 3}
       propertyPath: m_Name
       value: Boss
