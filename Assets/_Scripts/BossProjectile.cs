@@ -2,10 +2,11 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class BossProjectileController : MonoBehaviour
 {
-    public float speed = 0.001f;
+    public float speed = 0.5f;
     public float despawnDistance = 10;
     public float initX;
     public GameObject player;
@@ -16,7 +17,8 @@ public class BossProjectileController : MonoBehaviour
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         initX = gameObject.transform.position.x;
         dir = new Vector2(player.transform.position.x - gameObject.transform.position.x, player.transform.position.y - gameObject.transform.position.y);
-        gameObject.transform.LookAt(player.transform);
+        dir.Normalize();
+        //gameObject.transform.LookAt(player.transform);
     }
 
     // Update is called once per frame

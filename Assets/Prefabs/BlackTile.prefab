@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1798d2f2e7f81334ca6e1558505a2077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.005
+  speed: 0.03
   despawnDistance: 20
   initX: 0
   player: {fileID: 2144194687178004841, guid: d8d6c5406a6c1874f9a5d31e2154e329, type: 3}
