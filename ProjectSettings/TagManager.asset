@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - PlayerProjectile
   - Boss
+  - Health
   layers:
   - Default
   - TransparentFX
