@@ -8,12 +8,15 @@ public class PlayerProjectileController : MonoBehaviour
     public float speed = 0.1f;
     public int direction = 1;
     public float despawnDistance = 10;
+    public GameObject player;
     public float initX;
     
     // Start is called before the first frame update
     void Start()
     {
         initX = gameObject.transform.position.x;
+        player = GameObject.FindGameObjectWithTag("Player");
+        direction = (int) (player.transform.localScale.x / 2.5f);
     }
 
     // Update is called once per frame

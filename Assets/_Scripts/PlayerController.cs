@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Vector2 position = new Vector2(
-                gameObject.transform.position.x + 0.75f,
+                gameObject.transform.position.x + 0.75f * gameObject.transform.localScale.x /2.5f,
                 gameObject.transform.position.y
                 );
             Instantiate(projectile, position, Quaternion.identity);
