@@ -21047,14 +21047,14 @@ PrefabInstance:
     - target: {fileID: 4688865828596230562, guid: d8d6c5406a6c1874f9a5d31e2154e329, type: 3}
       propertyPath: you_win
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2299705696353878091, guid: 3587a144c06f4394faa805cee4a5af7e, type: 3}
     - target: {fileID: 4688865828596230562, guid: d8d6c5406a6c1874f9a5d31e2154e329, type: 3}
       propertyPath: projectile
       value: 
       objectReference: {fileID: 6963523677377282610, guid: abec6b78bbde9c74da89aa98d1e1e336, type: 3}
     - target: {fileID: 4688865828596230562, guid: d8d6c5406a6c1874f9a5d31e2154e329, type: 3}
       propertyPath: enable_input
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8005447919999232705, guid: d8d6c5406a6c1874f9a5d31e2154e329, type: 3}
       propertyPath: m_Constraints

@@ -10,6 +10,7 @@ public class PlayAgain : MonoBehaviour
     void Start()
     {
         Button btn = gameObject.transform.Find("Button").GetComponent<Button>();
+        Debug.Log(btn);
         btn.onClick.AddListener(TaskOnClick);
     }
 
