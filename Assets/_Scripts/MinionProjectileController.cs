@@ -7,6 +7,7 @@ public class MinionProjectileController : MonoBehaviour
 {
     public float speed = 0.1f;
     public int direction = -1;
+    public GameObject game_over;
     public float despawnDistance = 10;
     public float initX;
     // Start is called before the first frame update
@@ -40,6 +41,7 @@ public class MinionProjectileController : MonoBehaviour
             if (hp <= 0)
             {
                 Destroy(collision.gameObject);
+                Instantiate(game_over);
             }
             // Destroy self
 

@@ -22,7 +22,7 @@ public class MinionController : MonoBehaviour
         if(timePassed >= 2)
         {
             timePassed = 0f;
-            //Instantiate(projectile, gameObject.transform.position, Quaternion.identity);
+            Instantiate(projectile, gameObject.transform.position, Quaternion.identity);
         }
          
     }

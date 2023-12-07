@@ -9,6 +9,7 @@ TagManager:
   - PlayerProjectile
   - Boss
   - Health
+  - Win
   layers:
   - Default
   - TransparentFX

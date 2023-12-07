@@ -126,6 +126,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   health: 5
   anim: {fileID: 0}
+  you_win: {fileID: 1936288193929880581, guid: cf1b0cc1fd6dc884fa8a2babe8ee7d7d, type: 3}
 --- !u!50 &8005447919999232705
 Rigidbody2D:
   serializedVersion: 4

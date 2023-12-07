@@ -15,23 +15,25 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
-        if(player.transform.position.x + offset.x >= 0)
+        if (player != null)
         {
-            Vector3 newPos = new Vector3(
-                player.transform.position.x + offset.x,
-                0, 
-                -10.0f
-                );
-            transform.position = newPos;
-        }
-        else
-        {
-            Vector3 newPos = new Vector3(
-                0, transform.position.y,
-                -10.0f
-                );
-            transform.position = newPos;
+            if (player.transform.position.x + offset.x >= 0)
+            {
+                Vector3 newPos = new Vector3(
+                    player.transform.position.x + offset.x,
+                    0,
+                    -10.0f
+                    );
+                transform.position = newPos;
+            }
+            else
+            {
+                Vector3 newPos = new Vector3(
+                    0, transform.position.y,
+                    -10.0f
+                    );
+                transform.position = newPos;
+            }
         }
     }
 }

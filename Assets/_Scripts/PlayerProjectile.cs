@@ -10,6 +10,7 @@ public class PlayerProjectileController : MonoBehaviour
     public float despawnDistance = 10;
     public GameObject player;
     public float initX;
+
     
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class PlayerProjectileController : MonoBehaviour
         initX = gameObject.transform.position.x;
         player = GameObject.FindGameObjectWithTag("Player");
         direction = (int) (player.transform.localScale.x / 2.5f);
+        gameObject.transform.localScale = new Vector3(0.2f * direction, 0.2f, 0.2f);
     }
 
     // Update is called once per frame

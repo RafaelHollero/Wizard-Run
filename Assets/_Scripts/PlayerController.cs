@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private bool noInput;
     int layerMask = 1 << 6;
     private bool upKeyPressed = false;
+    public GameObject you_win;
+    public bool enable_input = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,63 +28,74 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = IsGrounded();
-        noInput = true;
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.Escape))
         {
-            Vector2 newPos = new Vector2(
-                gameObject.transform.position.x - speed * Time.deltaTime, 
-                gameObject.transform.position.y);
-
-            gameObject.transform.position = newPos;
-            noInput = false;
-            gameObject.transform.localScale = new Vector3(-2.5f, 2.5f, 1);
-            if (isGrounded)
-            {
-                anim.Play("WizardRun");
-            }            
+            SceneManager.LoadScene("TitleScreen");
         }
-        else if (Input.GetKey(KeyCode.RightArrow) )
+        if (enable_input)
         {
-            Vector2 newPos = new Vector2(
-                gameObject.transform.position.x + speed * Time.deltaTime,
-                gameObject.transform.position.y);
-
-            gameObject.transform.position = newPos;
-            noInput = false;
-            gameObject.transform.localScale = new Vector3(2.5f, 2.5f, 1);
-            if (isGrounded)
+            isGrounded = IsGrounded();
+            noInput = true;
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                anim.Play("WizardRun");
+                Vector2 newPos = new Vector2(
+                    gameObject.transform.position.x - speed * Time.deltaTime,
+                    gameObject.transform.position.y);
+
+                gameObject.transform.position = newPos;
+                noInput = false;
+                gameObject.transform.localScale = new Vector3(-2.5f, 2.5f, 1);
+                if (isGrounded)
+                {
+                    anim.Play("WizardRun");
+                }
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                Vector2 newPos = new Vector2(
+                    gameObject.transform.position.x + speed * Time.deltaTime,
+                    gameObject.transform.position.y);
+
+                gameObject.transform.position = newPos;
+                noInput = false;
+                gameObject.transform.localScale = new Vector3(2.5f, 2.5f, 1);
+                if (isGrounded)
+                {
+                    anim.Play("WizardRun");
+                }
+            }
+            if (Input.GetKey(KeyCode.UpArrow) && isGrounded && !upKeyPressed)
+            {
+                Vector2 jump = new Vector2(0.0f, 10f);
+                rb.AddForce(jump, ForceMode2D.Impulse);
+                noInput = false;
+                upKeyPressed = true;
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Vector2 position = new Vector2(
+                    gameObject.transform.position.x + 0.75f * gameObject.transform.localScale.x / 2.5f,
+                    gameObject.transform.position.y
+                    );
+                Instantiate(projectile, position, Quaternion.identity);
+                noInput = false;
+                // NEED TO FIX
+                anim.Play("WizardAttack");
+            }
+            if (!Input.GetKey(KeyCode.UpArrow))
+            {
+                upKeyPressed = false;
+            }
+            if (!isGrounded)
+            {
+                anim.Play("WizardJump");
+            }
+            else if (noInput)
+            {
+                anim.Play("WizardIdle");
             }
         }
-        if (Input.GetKey(KeyCode.UpArrow) && isGrounded && !upKeyPressed)
-        {
-            Vector2 jump = new Vector2(0.0f, 10f);
-            rb.AddForce(jump, ForceMode2D.Impulse);
-            noInput = false;
-            upKeyPressed = true;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Vector2 position = new Vector2(
-                gameObject.transform.position.x + 0.75f * gameObject.transform.localScale.x /2.5f,
-                gameObject.transform.position.y
-                );
-            Instantiate(projectile, position, Quaternion.identity);
-            noInput = false;
-            // NEED TO FIX
-            anim.Play("WizardAttack");
-        }
-        if (!Input.GetKey(KeyCode.UpArrow))
-        {
-            upKeyPressed = false;
-        }
-        if (!isGrounded)
-        {
-            anim.Play("WizardJump");
-        }
-        else if(noInput)
+        else
         {
             anim.Play("WizardIdle");
         }
@@ -110,4 +124,15 @@ public class PlayerController : MonoBehaviour
         }
         return check1 || check2;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Win"))
+        {
+            Instantiate(you_win);
+            enable_input = false;
+        }
+    }
+
+
 }
