@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4071323360512064787}
   m_Layer: 0
   m_Name: BlackTile
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +104,12 @@ MonoBehaviour:
   player: {fileID: 2144194687178004841, guid: d8d6c5406a6c1874f9a5d31e2154e329, type: 3}
   game_over: {fileID: 1232636775861609917, guid: 0cbcaec092943494b9f143f47161f687, type: 3}
   checkPlayer: []
+  full_hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!61 &4071323360512064787
 BoxCollider2D:
   m_ObjectHideFlags: 0

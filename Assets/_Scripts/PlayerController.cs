@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,9 +14,13 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     private bool noInput;
     int layerMask = 1 << 6;
+    public int crystal_count = 0;
     private bool upKeyPressed = false;
     public GameObject you_win;
+    public GameObject game_over;
     public bool enable_input = true;
+    public TextMeshProUGUI crystals;
+    public GameObject[] full_hearts;
 
     // Start is called before the first frame update
     void Start()
@@ -131,6 +136,29 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(you_win);
             enable_input = false;
+        }
+        else if (collision.gameObject.CompareTag("Health"))
+        {
+            if (health < 5)
+            {
+                full_hearts[health].SetActive(true);
+                health++;
+            }
+        }
+        else if (collision.gameObject.CompareTag("Crystal"))
+        {
+            crystal_count++;
+            crystals.text = "Crystals: " + crystal_count;
+        }
+        else if (collision.gameObject.CompareTag("EnemyProjectile"))
+        {
+            health -= 1;
+            full_hearts[health].SetActive(false);
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+                Instantiate(game_over);
+            }
         }
     }
 

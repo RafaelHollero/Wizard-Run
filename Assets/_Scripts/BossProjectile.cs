@@ -10,9 +10,9 @@ public class BossProjectileController : MonoBehaviour
     public float despawnDistance = 10;
     public float initX;
     public GameObject player;
-    public GameObject game_over;
     public GameObject[] checkPlayer;
     private Vector2 dir;
+    public GameObject[] full_hearts;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,19 +47,6 @@ public class BossProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            // Destroy alien
-            // collision.gameObject.GetComponent<AudioSource>().Play();
-            int hp = collision.gameObject.GetComponent<PlayerController>().health -= 1;
-            if (hp <= 0)
-            {
-                Destroy(collision.gameObject);
-                Instantiate(game_over);
-            }
-            // Destroy self
-
-        }
         if (collision.gameObject.tag != "Boss")
         {
             Destroy(gameObject);
